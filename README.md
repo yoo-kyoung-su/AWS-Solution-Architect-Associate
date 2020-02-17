@@ -2,6 +2,7 @@
 AWS SAA 시험 관련 개념 정리 (본 모든 정보는 AWS FAQ 및 docs를 기반으로 재구성)
 지속적으로 업데이트 할 것
 
+
 ## 1. AWS 기본 용어
 ###  Region  
 
@@ -172,6 +173,9 @@ AWS SAA 시험 관련 개념 정리 (본 모든 정보는 AWS FAQ 및 docs를 �
 - **Glacier** : 검색이 아닌 저장이 주용도인 스토리지로 저장요금이 위 클래스들보다 훨씬 저렴함. 다만 저장이 주용도이기 때문에 검색에 3~5시간이 걸림
 - **Glacier Deep Archive** : 10년 이상 저장할 데이터를 저장하는 스토리지 클래스
 
+![S3-class](https://user-images.githubusercontent.com/46843064/74656182-fabd9f80-51d0-11ea-9e86-c1a328389a3e.png)  
+
+
 ### 멀티 파트 업로드
 - **오브젝트의 크기가 클 경우, 이를 조각내어 병렬적으로 처리하여 처리량을 개선하는 방법**
 - 보통 객체의 크기가 100MB 이상일 경우 사용하는 것을 권고하며 최대 가능 크기는 5TB
@@ -230,7 +234,7 @@ AWS SAA 시험 관련 개념 정리 (본 모든 정보는 AWS FAQ 및 docs를 �
   2. DNS가 요청을 최적으로 서비스할 수 있는 Cloudfront Edge Location으로 요청을 라우팅함  
   3. Edge Location에서 해당 캐시에 요청된 파일이 있는지 확인하고 없으면 오리진 서버에 요청하여 확보 후 전달, 그리고 캐시 적재  
 
-
+![Image-2-2](https://user-images.githubusercontent.com/46843064/74655842-62271f80-51d0-11ea-8304-837adc311ed3.png)  
 
 ### OAI(Origin Access Identity) 
 - S3를 오리진 서버로 사용시, **Cloudfront를 제외하고 다른 경로로 S3를 접근하는 것을 막는 방법**
@@ -399,6 +403,9 @@ AWS SAA 시험 관련 개념 정리 (본 모든 정보는 AWS FAQ 및 docs를 �
 - 하나의 서브넷은 하나의 라우팅 테이블만 가지지만, 하나의 라우팅 테이블은 다수의 서브넷을 가질 수 있음
 - Public Subnet의 라우팅 테이블에는 인터넷 게이트웨이로의 라우팅이 있으며, Private Subnet에서 외부 인터넷 통신이 필요할 경우 NAT Gateway로의 라우팅이 잡혀 있음
 
+![Image-10](https://user-images.githubusercontent.com/46843064/74655614-fb096b00-51cf-11ea-8f49-a6ec58cc1afe.png)  
+<VPC의 한 형태(출처 : AWS docs)>
+
 ### Internet Gateway
 - **VPC 내 리소스가 외부 인터넷을 사용하고자 할 때 사용하는 게이트웨이**
 - 인터넷 게이트웨이가 없으면 외부 인터넷을 사용할 수 없음
@@ -406,6 +413,8 @@ AWS SAA 시험 관련 개념 정리 (본 모든 정보는 AWS FAQ 및 docs를 �
 - 다만 인터넷 게이트웨이가 있다 하더라도, VPC 내 리소스가 공인 IP를 가지고 있지 않다면 인터넷 사용 불가능
 - 또한 위의 설정을 모두 했음에도 인터넷이 제대로 되지 않는다면, 보안그룹과 Network ACL을 확인해야 함
 
+![Image-11](https://user-images.githubusercontent.com/46843064/74655695-1eccb100-51d0-11ea-8622-cc1526b3d16f.png)  
+<Internet Gateway의 설정(출처 : AWS docs)>
 
 ### NAT Gateway
 - **외부에서의 접촉이 원천적으로 차단되어 있는 Private Subnet에서 인터넷 접속을 통해야 할 경우 사용하는 게이트웨이**
@@ -413,6 +422,9 @@ AWS SAA 시험 관련 개념 정리 (본 모든 정보는 AWS FAQ 및 docs를 �
 - 인터넷이 연결된 Public sunbet에 NAT Gateway(EIP를 갖고 있음)를 생성한 후, Private Subnet의 라우팅 테이블에 ‘0.0.0.0/0’에 대하여 라우팅을 NAT Gateway로 잡아주면 사용 가능
 - CloudWatch를 이용하여 모니터링 가능
 
+
+![Image-12](https://user-images.githubusercontent.com/46843064/74655762-3f950680-51d0-11ea-8ed1-528eb039f627.png)  
+<NAT Gateway의 설정(출처 : AWS docs)>
 
 ### NAT Instance
 - **Public Subnet에 생성된 NAT Gateway 대신 EC2 인스턴스를 사용하는 방법**
@@ -439,6 +451,9 @@ AWS SAA 시험 관련 개념 정리 (본 모든 정보는 AWS FAQ 및 docs를 �
 - Source IP, Protocol, Port 등을 설정할 수 있음
 - 설정 변경시 즉시 적용됨
 
+![Image-13-1024x550](https://user-images.githubusercontent.com/46843064/74655176-466f4980-51cf-11ea-91e5-3c155df427a8.png)  
+<보안그룹의 예시(출처 : AWS docs)>
+
 ### Network ACL
 - **서브넷 내부와 외부의 트래픽을 제어하기 위한 가상 방화벽으로 네트워크 스위치의 ACL과 역할이 같음**
 - 서브넷의 가상 방화벽이기 때문에 서브넷에 속한 모든 인스턴스가 영향을 받음
@@ -449,6 +464,9 @@ AWS SAA 시험 관련 개념 정리 (본 모든 정보는 AWS FAQ 및 docs를 �
 - 허용과 거부 모두 가능
 - Security Group과 달리 우선순위 값이 존재하며 가장 작은 값이 가장 높은 우선순위를 가지고 우선순위부터 순서대로 적용됨
 - 변경 사항은 잠시 후 적용됨
+
+![Image-3-1024x509](https://user-images.githubusercontent.com/46843064/74655403-a36aff80-51cf-11ea-9f32-c7b73846c900.png)  
+<Network ACL의 예시(출처 : AWS docs)> 
 
 ### Security Group vs Network ACL(중요!)
 - Security Group은 ‘Stateful’, Network ACL은 ‘Stateless’
@@ -468,7 +486,10 @@ AWS SAA 시험 관련 개념 정리 (본 모든 정보는 AWS FAQ 및 docs를 �
 - 그러므로 후술할 Direct Connect와 같은 전용선 서비스나 VPN, 인터넷 게이트웨이와 같은 외부 연결이 되어 있지 않는 서브넷에서 아마존의 여러 서비스를 연결할 수 있음
 - **간단히 말하여 아마존 서비스 전용선**
 - VPC 엔드포인트에는 Interface Endpoint, Gateway Endpoint 두 종류가 존재
-- Gateway Endpoint는 S3와 Dynamo DB만 가능(중요!)
+- **Gateway Endpoint는 S3와 Dynamo DB만 가능(중요!)**
+
+![Image-4](https://user-images.githubusercontent.com/46843064/74655492-cdbcbd00-51cf-11ea-9d88-e9c0b5f798f1.png)  
+<VPC Endpoint를 통한 S3로의 연결(출처 : AWS docs)>
 
 ### VPN
 - **AWS의 IPSEC VPN 서비스**
@@ -649,6 +670,9 @@ AWS SAA 시험 관련 개념 정리 (본 모든 정보는 AWS FAQ 및 docs를 �
    - ELB를 사용하는 경우, ELB가 손상된 인스턴스를 트래픽 요청 대상에서 분리시킨 후, Auto Scaling이 이를 새로운 인스턴스로 교체함
 - 비정상 서버 탐지후 Auto Scaling이 새로운 인스턴스를 In Service 상태로 만들기까지 5분 이내 소요
 
+![Image-1](https://user-images.githubusercontent.com/46843064/74655062-0f993380-51cf-11ea-8ec3-af50a09eb4fb.png)  
+<Auto Scaling의 장점(출처 : AWS docs)>
+
 ### 시작 구성(Launch Configuration)
 - **Auto Scaling에서 새로운 인스턴스를 시작할 때 기반이 되는 구성**
 - AMI(Amazon Machine Image), 인스턴스 유형, 보안그룹, 스토리지 등 EC2를 생성할 때와 마찬가지로 옵션을 구성할 수 있음
@@ -823,6 +847,9 @@ AWS SAA 시험 관련 개념 정리 (본 모든 정보는 AWS FAQ 및 docs를 �
    - 즉, CMK에 대한 접근권한이 없다면 데이터를 복호화할 수 없음
    - CMK를 삭제하게 되면 데이터를 복호화할 길은 전혀 없음 
 
+![Image-1-1](https://user-images.githubusercontent.com/46843064/74654996-e1b3ef00-51ce-11ea-8207-46ddd7715a3e.png)  
+<출처 : AWS 코리아, AWS KMS를 활용하여 안전한 AWS 환경을 구축하기 위한 전략>
+
 ### AWS 관리형 키(CMK)
 - **AWS가 직접 CMK를 생성, 관리하는 서비스**
 - 사용자가 CMK에 대한 제어권한이 없음
@@ -914,6 +941,9 @@ AWS SAA 시험 관련 개념 정리 (본 모든 정보는 AWS FAQ 및 docs를 �
    - **Resources** : 필수 섹션, Cloudformation에 포함될 리소스
    - **Metadata** : 선택 섹션, 템플릿에 대한 세부 정보를 제공하는 임의의 JSON, YAML 객체
    - **Mappings** : 선택 섹션, 프로그래밍 언어로 따지면 ‘Switch’ 조건문에 해당하며 ‘키’에 해당하는 값 세트를 생성하고 해당하는 키가 있으면 값 세트에 맞춰 리소스를 생성함
+   
+![이미지-3](https://user-images.githubusercontent.com/46843064/74654896-ac0f0600-51ce-11ea-9ecb-1989da2d95d1.jpg)     
+<JSON으로 생성한 Cloudformation Template> 출처 : AWS docs
 
 ### Cloudformation의 과금 특징
 - Cloudformation 서비스 자체는 **무료**이지만, Cloudformation을 통해 생성되는 모든 리소스는 유료임
@@ -934,6 +964,7 @@ AWS SAA 시험 관련 개념 정리 (본 모든 정보는 AWS FAQ 및 docs를 �
 - 또한 물리적으로 격리된 환경이거나 인터넷 환경이 좋지 않을 경우 사용
 - 평균적으로 AWS로 데이터를 업로드하는데 1주일 이상이 소요되는 경우 Snowball 사용을 검토함
 
+![Image-3](https://user-images.githubusercontent.com/46843064/74654315-66057280-51cd-11ea-83af-d4b7d332ba51.png)
 
 ## 20. CloudTrail
 
@@ -958,6 +989,9 @@ AWS SAA 시험 관련 개념 정리 (본 모든 정보는 AWS FAQ 및 docs를 �
 - Cache는 CPU와 메모리 사이 뿐만 아니라, 메모리와 디스크 사이에서도 발생함
 - 후술할 In Memory Cache는 메모리와 디스크 사이의 Caching을 의미 
 
+![diagram-MemoryCache-400x400-1](https://user-images.githubusercontent.com/46843064/74654525-d01e1780-51cd-11ea-8bc7-d10d1170448d.png)  
+<하드웨어별 접근속도>
+
 ### In Memory Cache(In Memory DataBase)
 - **데이터 처리 속도를 향상시키기 위한 메모리 기반의 DBMS**
 - 메모리 위에 모든 데이터를 올려두고 사용하는 데이터베이스의 일종(ElastiCache가 AWS 카테고리에서 DB 부분에 있는 이유)
@@ -974,6 +1008,9 @@ AWS SAA 시험 관련 개념 정리 (본 모든 정보는 AWS FAQ 및 docs를 �
 - ElastiCache는 Node로 구성되어 서비스를 제공하며, Node는 EC2처럼 다양한 Type을 가지고 유형에 따라 다양한 메모리 크기를 가짐
 - 다양한 Type을 갖는 이유는 적은 양의 메모리가 필요할 경우, 작은 Type의 Node를 사용하여 비용을 적게 들게 하기 위함
 - 유형이 결정된 Node들은 ‘고정된’ 메모리 크기를 가지며, 각자의 DNS로 이루어진 엔드포인트를 보유함 
+
+![Image-1-1024x502](https://user-images.githubusercontent.com/46843064/74654604-0491d380-51ce-11ea-97e4-26c4a79e86cd.png)  
+<AWS 설명서 : ElastiCache>
 
 ### Memcached의 특징
 - **Cluster로 구성되어 있으며, Cluster 내에는 Node들이 존재하여 인 메모리 캐시로서의 역할을 담당함**
