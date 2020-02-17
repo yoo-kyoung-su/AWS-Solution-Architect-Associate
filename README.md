@@ -10,6 +10,10 @@ AWS SAA 시험 관련 개념 정리 (본 모든 정보는 AWS FAQ 및 docs를 �
  - 한 곳의 AZ가 기능마비되더라도 다른 AZ가 기능을 수행함  
  - 전세계 주요 대도시에 분포되어있음(서울 포함)  
  - AWS 사용자는 각 Region마다 별도의 클라우드망을 구성할 수 있음
+ 
+ ![aws_regions](https://user-images.githubusercontent.com/46843064/74656562-ae269400-51d1-11ea-8bc9-97a94390f9d3.png)  
+ 
+
 
 ###  Availability Zone  
 
@@ -306,6 +310,7 @@ AWS SAA 시험 관련 개념 정리 (본 모든 정보는 AWS FAQ 및 docs를 �
    - 기본 DB 인스턴스 OS에서 소프트웨어 패치 실시
    - 장애 조치 재부팅(Failover) 실시
 
+![con-multi-AZ](https://user-images.githubusercontent.com/46843064/74656891-6e13e100-51d2-11ea-96cd-933a9118f075.png)  
 
 ### Read Replica(중요!)
 - **읽기 전용 복제본**
