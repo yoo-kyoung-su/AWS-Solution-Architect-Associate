@@ -1147,7 +1147,7 @@ HTTP GET /user/ks/name
 ### REST API
 - 위에서 설명한 REST의 특서에 맞게 설계한 API를 REST API라 칭함.
 
-## API Gateway란?
+### API Gateway란?
 - **REST API 및 Websocket API를 생성, 유지, 관리하는 AWS 서비스**
 - Lamda, AWS service, VPC, HTTP webpage 등과 연동하여 resource에 대한 HTTP Method 정의 가능
 - API Gateway와 Lamda를 연동하여 사용하기 용이함 --> USER->API Gateway->Lamda
