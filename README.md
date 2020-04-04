@@ -1066,4 +1066,67 @@ AWS SAA 시험 관련 개념 정리 (본 모든 정보는 AWS FAQ 및 docs를 �
 - 또한 ELB, EBS 볼륨, VPC, IAM과 같은 기능을 사용하여 구성 가능
 - 즉, ECS 각 작업의 권한, ECS 액세스를 IAM으로 조절하거나, EC2 유형의 컨테이너 인스턴스만이 OS에 액세스 가능한 특징 등을 갖게 됨
 
+## 23. Lamda
 
+### Lamda란?
+- Serverless Service
+- **서버를 구축, 프로비져닝하고 필요한 패키지를 설치하는 등의 과정을 거치지 않고, 코드를 실행하는 서비스**
+- 사용자는 애플리케이션이나 백엔드 서비스를 과리할 필요없이 코드를 실행할 수 있음
+- 또한 CloudWatch, ALB, DynamoDB 등을 트리거로 이용하여 특정 상황에서 코드를 실행시키는 것이 가능
+- API Gateway와 Lamda를 조합하여 요청별로 특정 코드를 수행하도록 구성 가능
+- 15분을 초과하는 작업에 대해서는 Lamda 비적합
+
+### Function의 정의와 구성
+- 코드를 실행하기 위해 호출할 수 있는 리소스
+- 이벤트를 처리하는 코드, 계층, 트리거, 전달 대상 등으로 구성됨
+- **함수코드**: 실제 호출되기 위해 실행되는 코드, Runtime(코드 실행지원), IAM, VPC, Memory 등으로 구성됨
+- **트리거**: 함수코드를 발동시키는 서비스(S3, SNS, SQS, DynamoDB, CloudWatch Event, Cloudwatch log등)
+   - SNS의 메시지 구독 대상에 Lamda를 포함시키면, 메세지 발송시 Lamda가 이를 전달받고 함수코드 실행
+- **전달대상**: 함수가 비동기식으로 호출되거나, 레코드를 처리한경우 전달될 대상
+   - SNS, SQS, 또다른 Lamda, EventBridge 이벤트 버스로 전달가능
+   - NS로부터 메세지를 전달받아 코드를 처리하고 이를 SQS로 보내 메세지 대기열에 적재할 수 있음
+  
+### EC2 vs Lamda
+- EC2 사용시 프로비져닝, 운영체제, 네트워크 세부 설정, 보안 설정 등을 사용자가 원하는 방향으로 지정 가능
+- Lamda 사용시 프로비져닝 필요없이 AWS가 모니터링, 프로비져닝, 보안패치 적용, 코드 배포를 모두 수행함
+
+## 24. Redshift
+
+### 필요 개념
+- **Data Warehouse(DW)**: 하나의 통합된 데이터 저장공간으로서, 다양한 운영 환경의 시스템들로부터 데이터를 추출, 변환, 통합해서 요약한 데이터베이스
+   - 데이터베이스가 관련 있는 업무 데이터는 잘 저장하나, 저장된 데이터들을 제대로 활용하지 못하는 것에서 착안
+   - 기본적으로 관계형 데이터베이스가 있는 상태를 가정하여 DW를 구성하며, 동영상이나 음악처럼 DB에 저장할 수 없는 파일도 필요한 부분을 추출하여 보여주어야함
+- **ETL(Extract,Transform,Loda)** : 데이터를 추출하고, 변형하여, (Data Warehouse) 적재하는 과정을 일컫는 말
+- **BI(Busuness Intelligence)** : 데이터 추출/통합/리포팅을 위한 기본 도구 집합, DW에서 분석된 데이터를 통해 숨겨진 패턴을 찾아냄
+- ETL을 통해 뽑아낸 데이터를 DW에 적재하고, BI를 이용하여 분석하는 기본 과정을 거침
+
+### Redshift란?
+- PostgreSQL를 기반으로 하는 AWS의 Data Warehouse Service
+- 모든 데이터를 표준 SQL 혹은 BI 도구를 사용하여 효율적으로 분석할 수 있도록 지원
+- 대량 병렬처리(MPP)를 통해 복잡한 쿼리라도 빠른 속도로 실행하여 대용량 처리 가능
+- 열(Column) 단위 데이터 저장 방식
+- COPY 명령어를 통해 Amazon EMR, Amazon Dynamo DB, S3로부터 데이터를 병렬 로드 가능
+- Enhanced VPC Routing을 통해 클러스터와 VPC 외부의 COPY, UNLOAD 트래픽을 모니터링 할 수 있음
+- WLM(Workload Management)를 통해 사용자가 작업 부하 내 우선 순위를 유연하게 관리하도록 지원
+- 보존기간이 1일인 자동 백업을 지원하며, 최대 35일까지 설정 가능
+- 단일 AZ 배포만을 지원함
+
+### Redshift의 구성
+- **클러스터**: Redshift의 핵심 요소로, 하나의 리더 노드와 다수의 컴퓨팅 노드를 가지고 있는 구성 요소
+- **리더 노드**: 클라이언트 프로그램과 일언는 통신을 비롯해 컴퓨팅 노드간의 모든 통신/작업 관리
+- **컴퓨팅 노드**: 실제 작업을 수행하는 노드로, 각 노드마다 전용 CPU와 메모리 내장 디스크 스토리지를 따로 보유함
+
+### Redshift vs RDS
+- Redshift 는 보고 및 분석에 사용되지만, RDS는 OLTP(온라인 트랜잭션) 워크로드에 사용
+- Redshift는 대용량 데이터 세트를 대상을 복합적인 분석 쿼리를 빠르게 실행하는 것에 목표를, RDS는 단일 행 트랜잭션에 목표를 둠
+
+## API Gateway
+
+### 필수 개념
+- REST(Representational State Tranfer)의 추상적 정의: 소프트웨어의 구성요소 사이의 관계를 표현한 '소프트웨어 아키텍쳐'의 한 형식으로 Server에서 제공하는 자원을 정의하고 자원에 대한 주소를 지정하는 방식을 뜻함.
+- REST(Representational State Tranfer)의 구체적 정의: 모든 자원(Resource)을 HTTP URI(Uniform Identifier)로 표현하고, '행위'에 해당하는 HTTP Method(GET, PUT, POST, DELETE)를 통해 해당 자원에 대해 CRUD를 지시하는 것을 뜻함
+- CRUD: Create(생성),Read(조회), Update(수정), Delete(삭제)
+- 웹사이트가 존재하고 각종 이미지와 텍스트 파일 등을 제공할 경우, 각각의 이미지와 텍스트 파일은 교유의 URI를 갖게됨
+- Client는 그 URI를 GET(조회), PUT(수정)하는 등의 행동을 통해 통신할 수 있음
+   - https://abc.com/user/ks/name --> 'name'으로 저장된 resource의 URI
+   - HTTP GET /user/hyoh/name --> 해당 resource 호출, 'name'의 값을 가져옴
