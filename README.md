@@ -1120,7 +1120,7 @@ AWS SAA 시험 관련 개념 정리 (본 모든 정보는 AWS FAQ 및 docs를 �
 - **Redshift 는 보고 및 분석에 사용되지만, RDS는 OLTP(온라인 트랜잭션) 워크로드에 사용**
 - Redshift는 대용량 데이터 세트를 대상을 복합적인 분석 쿼리를 빠르게 실행하는 것에 목표를, RDS는 단일 행 트랜잭션에 목표를 둠
 
-## API Gateway
+## 25. API Gateway
 
 ### 필수 개념
 - **REST(Representational State Tranfer)의 추상적 정의: 소프트웨어의 구성요소 사이의 관계를 표현한 '소프트웨어 아키텍쳐'의 한 형식으로 Server에서 제공하는 자원을 정의하고 자원에 대한 주소를 지정하는 방식을 뜻함.**
