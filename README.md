@@ -1101,8 +1101,8 @@ AWS SAA 시험 관련 개념 정리 (본 모든 정보는 AWS FAQ 및 docs를 �
 - ETL을 통해 뽑아낸 데이터를 DW에 적재하고, BI를 이용하여 분석하는 기본 과정을 거침
 
 ### Redshift란?
-- PostgreSQL를 기반으로 하는 AWS의 Data Warehouse Service
-- 모든 데이터를 표준 SQL 혹은 BI 도구를 사용하여 효율적으로 분석할 수 있도록 지원
+- **PostgreSQL를 기반으로 하는 AWS의 Data Warehouse Service**
+- **모든 데이터를 표준 SQL 혹은 BI 도구를 사용하여 효율적으로 분석할 수 있도록 지원**
 - 대량 병렬처리(MPP)를 통해 복잡한 쿼리라도 빠른 속도로 실행하여 대용량 처리 가능
 - 열(Column) 단위 데이터 저장 방식
 - COPY 명령어를 통해 Amazon EMR, Amazon Dynamo DB, S3로부터 데이터를 병렬 로드 가능
@@ -1117,15 +1117,15 @@ AWS SAA 시험 관련 개념 정리 (본 모든 정보는 AWS FAQ 및 docs를 �
 - **컴퓨팅 노드**: 실제 작업을 수행하는 노드로, 각 노드마다 전용 CPU와 메모리 내장 디스크 스토리지를 따로 보유함
 
 ### Redshift vs RDS
-- Redshift 는 보고 및 분석에 사용되지만, RDS는 OLTP(온라인 트랜잭션) 워크로드에 사용
+- **Redshift 는 보고 및 분석에 사용되지만, RDS는 OLTP(온라인 트랜잭션) 워크로드에 사용**
 - Redshift는 대용량 데이터 세트를 대상을 복합적인 분석 쿼리를 빠르게 실행하는 것에 목표를, RDS는 단일 행 트랜잭션에 목표를 둠
 
 ## API Gateway
 
 ### 필수 개념
-- REST(Representational State Tranfer)의 추상적 정의: 소프트웨어의 구성요소 사이의 관계를 표현한 '소프트웨어 아키텍쳐'의 한 형식으로 Server에서 제공하는 자원을 정의하고 자원에 대한 주소를 지정하는 방식을 뜻함.
-- REST(Representational State Tranfer)의 구체적 정의: 모든 자원(Resource)을 HTTP URI(Uniform Identifier)로 표현하고, '행위'에 해당하는 HTTP Method(GET, PUT, POST, DELETE)를 통해 해당 자원에 대해 CRUD를 지시하는 것을 뜻함
-- CRUD: Create(생성),Read(조회), Update(수정), Delete(삭제)
+- **REST(Representational State Tranfer)의 추상적 정의: 소프트웨어의 구성요소 사이의 관계를 표현한 '소프트웨어 아키텍쳐'의 한 형식으로 Server에서 제공하는 자원을 정의하고 자원에 대한 주소를 지정하는 방식을 뜻함.**
+- **REST(Representational State Tranfer)의 구체적 정의: 모든 자원(Resource)을 HTTP URI(Uniform Identifier)로 표현하고, '행위'에 해당하는 HTTP Method(GET, PUT, POST, DELETE)를 통해 해당 자원에 대해 CRUD를 지시하는 것을 뜻함**
+- **CRUD**: Create(생성),Read(조회), Update(수정), Delete(삭제)
 - 웹사이트가 존재하고 각종 이미지와 텍스트 파일 등을 제공할 경우, 각각의 이미지와 텍스트 파일은 교유의 URI를 갖게됨
 - Client는 그 URI를 GET(조회), PUT(수정)하는 등의 행동을 통해 통신할 수 있음
    - https://abc.com/user/ks/name --> 'name'으로 저장된 resource의 URI
@@ -1133,9 +1133,9 @@ AWS SAA 시험 관련 개념 정리 (본 모든 정보는 AWS FAQ 및 docs를 �
    
 ![CRUD](https://user-images.githubusercontent.com/46843064/78450236-309ee080-76b8-11ea-9490-b8d7280ce314.JPG)
 ### REST의 필수 3요소
-- 자원(Resource): Server에서 제공하는 모든 Resource
-- 행위(Verb) : HTTP Method 를 사용하여 Server에서 제공하는 Resouce를 취득하는 행위
-- 표현(Representations): HTTP Method에 응답하여 Server가 전달하는 Resouce를 표현하는 방법
+- **자원(Resource)**: Server에서 제공하는 모든 Resource
+- **행위(Verb)** : HTTP Method 를 사용하여 Server에서 제공하는 Resouce를 취득하는 행위
+- **표현(Representations)**: HTTP Method에 응답하여 Server가 전달하는 Resouce를 표현하는 방법
 
 ``` javascript
 HTTP GET /user/ks/name
@@ -1143,3 +1143,37 @@ HTTP GET /user/ks/name
   "name":"ks"('name'의 값)
 }
  ```
+
+### REST API
+- 위에서 설명한 REST의 특서에 맞게 설계한 API를 REST API라 칭함.
+
+## API Gateway란?
+- **REST API 및 Websocket API를 생성, 유지, 관리하는 AWS 서비스**
+- Lamda, AWS service, VPC, HTTP webpage 등과 연동하여 resource에 대한 HTTP Method 정의 가능
+- API Gateway와 Lamda를 연동하여 사용하기 용이함 --> USER->API Gateway->Lamda
+- 핵심 구성요소로 Resource와 method, Stage가 있음
+- API Gateway 생성시, 최상위에 '/Method(Root Method)' 가 하나만 존재하는 상태로 시작함
+- Cloudfront 를 통해 정적 페이지는 S3에서 제공하고, 동적 페이지 혹은 데이터는 Cloudfront - API Gateway - Lambda를 통해 처리하는 방식 사용가능
+- API Gateway는 HTTPS endpoints를 통해 URI를 게시함
+- AWS가 프로비저닝과 관리를 분담하고 고객이 개발만을 집중하고자 할 경우 API Gateway와 Lambda가 유용하게 사용될 수 있음
+![api gateway](https://user-images.githubusercontent.com/46843064/78450237-3268a400-76b8-11ea-82a7-0e0bf729ecab.JPG)
+
+### Resouce
+- API Gateway의 핵심 구성요소
+- **서비스의 대상이 되는 자원을 의미**
+- 모든 자원(Resource)를 HTTP URI로 표현하는 REST의 특성상, 각 리소스는 고유의 URI를 부여받음
+- Resource는 HTTP Method를 생성할 수 있으며, Method에 대해 연결 포인트를 만들어 행동 대상을 지정할 수 있음
+
+### Method
+- API Gateway의 핵심 구성요소
+- **서비스의 대상으로 지정된 자원에 대해 취할 행동을 정의함**
+- HTTP Method가 사용되며, GET, PUT, HEAD, OPTION 등이 있음
+- 각 Method마다 연결 포인트를 지정할 수있음
+- Lambda를 연결 포인트로 지정시 Lambda Function을 호출하여 수행함
+
+### Stage
+- API Gateway의 핵심 구성요소
+- **위에서 언급한 두개의 요소를 하나로 합쳐 Console에서는 'Resource'라 표현하며, 'Resource'를 배포한 것이 Stage**
+- Client가 실제로 사용하기 위해 생성해야 하는 배포판
+- Stage 생성시 각 리소스에 대해 URI가 생성된 것을 확인할 수 
+
