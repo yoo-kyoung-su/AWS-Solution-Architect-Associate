@@ -1130,3 +1130,4 @@ AWS SAA 시험 관련 개념 정리 (본 모든 정보는 AWS FAQ 및 docs를 �
 - Client는 그 URI를 GET(조회), PUT(수정)하는 등의 행동을 통해 통신할 수 있음
    - https://abc.com/user/ks/name --> 'name'으로 저장된 resource의 URI
    - HTTP GET /user/hyoh/name --> 해당 resource 호출, 'name'의 값을 가져옴
+https://user-images.githubusercontent.com/46843064/78450236-309ee080-76b8-11ea-9490-b8d7280ce314.JPG
